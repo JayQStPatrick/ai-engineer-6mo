@@ -1,0 +1,17 @@
+repos:
+  # Ruff - linting + import sorting
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.11.6
+    hooks:
+      - id: ruff
+        args: [--fix]         # auto-fix lint issues
+      - id: ruff-format       # auto-format code
+
+  # General hygiene hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace    # removes trailing spaces
+      - id: end-of-file-fixer      # ensures files end with a newline
+      - id: check-yaml             # validates YAML files
+      - id: check-merge-conflict   # catches leftover merge conflict markers

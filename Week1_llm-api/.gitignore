@@ -1,0 +1,48 @@
+# ========================
+# Python
+# ========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# ========================
+# Virtual Environment
+# ========================
+venv/
+.venv/
+env/
+.env/
+
+# ========================
+# Environment Variables (SENSITIVE - never commit these)
+# ========================
+.env
+.env.local
+.env.*.local
+
+# ========================
+# Ruff / Linting Cache
+# ========================
+.ruff_cache/
+
+# ========================
+# Testing
+# ========================
+.pytest_cache/
+htmlcov/
+.coverage
+
+# ========================
+# VS Code
+# ========================
+.vscode/
+*.code-workspace
+
+# ========================
+# OS Junk
+# ========================
+.DS_Store           # Mac
+Thumbs.db           # Windows
+desktop.ini         # Windows

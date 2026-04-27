@@ -1,0 +1,10 @@
+line-length = 88
+indent-width = 4
+
+[lint]
+select = ["E", "F", "I", "UP"]   # Errors, Pyflakes, isort, pyupgrade
+ignore = ["E501"]                  # Ignore line-too-long
+
+[format]
+quote-style = "double"
+indent-style = "space"
