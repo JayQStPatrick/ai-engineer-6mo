@@ -1,5 +1,6 @@
 import json
 
+import litellm
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
@@ -60,3 +61,30 @@ async def extract(req: ExtractRequest):
         response_format=schema,
     )
     return json.loads(resp.choices[0].message.content)
+
+
+@app.post("/tool-call")
+async def tool_call_stub(req: ChatRequest):
+    tools = [
+        {
+            "type": "function",
+            "function": {
+                "name": "get_weather",
+                "description": "Get the current weather for a city",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "city": {"type": "string"}
+                    },
+                    "required": ["city"]
+                }
+            }
+        }
+    ]
+    resp = await litellm.acompletion(
+        model="gpt-4o-mini",
+        messages=req.messages,
+        tools=tools,
+        tool_choice="auto",
+    )
+    return resp.choices[0].message.model_dump()

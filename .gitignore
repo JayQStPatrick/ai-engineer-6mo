@@ -46,3 +46,12 @@ htmlcov/
 .DS_Store           # Mac
 Thumbs.db           # Windows
 desktop.ini         # Windows
+
+
+# ========================
+# Week 2 - RAG / Data
+# ========================
+data/processed/
+*.index
+*.faiss
+.ipynb_checkpoints/
