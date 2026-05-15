@@ -32,4 +32,22 @@ def ingest(path, strategy, chunk_size, overlap):
     console.print(f"  {len(chunks)} chunks created ({strategy})")
 
     build_index(chunks)
-    console
+    console.print("[green]Index built.[/green]")
+
+@cli.command()
+@click.argument("query")
+@click.option("--top-k", default=5)
+def search(query, top_k):
+    """Search the index for a query."""
+    results = retrieve(query, top_k)
+    table = Table(title=f"Top {top_k} results for: {query}")
+    table.add_column("Citation", style="cyan")
+    table.add_column("Score", style="magenta")
+    table.add_column("Preview")
+    for r in results:
+        table.add_row(r["citation"], f"{r['score']:.3f}",
+                      r["text"][:120] + "...")
+    console.print(table)
+
+if __name__ == "__main__":
+    cli()
