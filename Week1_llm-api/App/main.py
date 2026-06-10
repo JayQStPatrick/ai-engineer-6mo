@@ -19,6 +19,10 @@ class ExtractRequest(BaseModel):
     text: str
     fields: list[str] = ["name", "date", "amount"]
 
+class SummariseRequest (BaseModel):
+    text : str
+
+
 
 @app.get("/health")
 async def health():
@@ -62,6 +66,9 @@ async def extract(req: ExtractRequest):
     )
     return json.loads(resp.choices[0].message.content)
 
+@app.post("/summarise")
+async def summarise(req: SummariseRequest:
+    user_text = req.text
 
 @app.post("/tool-call")
 async def tool_call_stub(req: ChatRequest):
