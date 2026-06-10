@@ -66,9 +66,39 @@ async def extract(req: ExtractRequest):
     )
     return json.loads(resp.choices[0].message.content)
 
+summary_schema = {
+    "type": "json_schema",
+    "json_schema": {
+        "name": "summary",
+        "schema": {
+            "type": "object",
+            "properties": {
+                "title": {"type": "string"},
+                "key_points": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                },
+                "sentiment": {
+                    "type": "string",
+                    "enum": ["positive", "negative", "neutral"]
+                }
+            },
+            "required": ["title", "key_points", "sentiment"],
+        },
+        "strict": True,
+    }
+}
 @app.post("/summarise")
-async def summarise(req: SummariseRequest:
+async def summarise(req: SummariseRequest):
     user_text = req.text
+
+    prompt = f"Summarise the following text. Return a title, key points, and sentiment.\n\nText: {user_text}"
+
+    resp = await call_llm(
+        messages = [{"role" : "user", "content": prompt}],
+        response_format = summary_schema,
+    )
+    return json.loads(resp.choices[0].message.content)
 
 @app.post("/tool-call")
 async def tool_call_stub(req: ChatRequest):
